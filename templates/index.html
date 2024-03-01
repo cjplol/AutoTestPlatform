@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自动化测试平台</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <script src="{{ url_for('static',filename='js/app.js') }}"></script>
+</head>
+<div class="header">
+        <h1>自动化测试平台</h1>
+</div>
+
+<div class="nav">
+        <div class="active" onclick="location.href='/';">自动化测试</div>
+        <div onclick="location.href='test_results.html'">测试结果</div>
+        <div onclick="location.href='test_reports.html'">测试报告</div>
+</div>
+
+<div class="container">
+    <form action="/" method="get">
+        <div>
+            <label for="test_stand">选择台架：</label>
+            <select id="test_stand" name="test_stand">
+                {% for stand in test_stands %}
+                <option value="{{ stand }}">{{ stand }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="version">四位数版本号：</label>
+            <input type="text" id="version" name="version" maxlength="4" style="width:60px" autofocus>
+        </div>
+        <div>
+            <label for="routes">选择航线：</label>
+            <select id="routes" name="routes" multiple>
+                {% for route in routes %}
+                <option value="{{ route }}">{{ route }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <button type="submit" id="start_test_btn">开始测试</button>
+        </div>
+        <!-- 用于显示错误消息的元素 -->
+        <div id="error-msg" style="color: red;"></div>
+    </form>
+    <div class="button-group">
+        <button onclick="window.location.href='/test_records'">查看测试记录</button>
+        <button onclick="window.location.href='/test_reports'">查看测试报告</button>
+    </div>
+
+</div>
+</body>
+</html>
