@@ -103,19 +103,17 @@ button:hover {
 
 
 .select_route{
+    position: relative; /* 设置相对定位基准 */
     display: flex;
-    align-items: center;
+    justify-content: center; /* 水平居中。会自动应用到所有子元素，因此只有按钮本身被居中。*/
 }
 
-.select_route p{
+#select_route_p{
     color: red;
     font-size: 13px;
+    position: absolute; /* 绝对定位置于左侧或右侧 */
+    left: 70%; /* 将 <p> 放置在 button 的右边 */
+    white-space: nowrap; /* 防止 <p> 中的文字换行 */
 }
-
-.select_route button {
-    margin-left: 50%; /* 按钮左边的外边距自动调整 */
-    margin-right: 10px; /* 按钮右边的外边距自动调整 */
-}
-
 
 
