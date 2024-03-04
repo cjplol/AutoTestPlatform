@@ -1,76 +1,121 @@
 body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f7f7f7;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-        }
-        .header {
-            text-align: center;
-            width: 100%;
-            padding: 20px 0;
-            background-color: #215;
-            color: #fff;
-        }
-        .container {
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
-        form, .button-group {
-            margin-bottom: 15px;
-        }
-        select, button {
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button {
-            background-color: #5cb85c;
-            color: white;
-            border: none;
-            margin-right: 10px;
-        }
-        button:hover {
-            background-color: #4cae4c;
-        }
-        .button-group {
-            display: flex;
-            justify-content: center;
-        }
-        .button-group button {
-            margin: 0 10px;
-        }
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
 
-        .nav{
-            display:flex;
-            justify-content:center;
-            padding: 10px;
-            background-color: #ddd;
-            width: 100%
-        }
+h2{
+    margin: 8px;
+}
 
-        .nav div{
-            margin:0 10px;
-            padding: 10px;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            cursor: pointer;
-            border-radius: 15px;
-        }
 
-        .nav div.active{
-            background-color: yellow;
-            border-color: #888;
+.header {
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+    background-color: #175;
+    color: #fff;
+}
 
-        }
+
+.nav{
+    display:flex;
+    justify-content:center;
+    padding: 10px;
+    background-color: #ddd;
+    width: 100%;
+    gap: 10%;
+}
+
+.nav div{
+    margin:0 10px;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 15px;
+}
+
+.nav div.active{
+    background-color: yellow;
+    border-color: #888;
+
+}
+
+
+.container {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 0px;
+}
+
+.test_config_left,.test_progress_right{
+    border: 1.5px solid black;
+    width: 50%;
+    height: 100%;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.test_config_left div,.test_progress_right div{
+    margin-bottom:10px;
+}
+
+form, .button-group {
+    margin-bottom: 15px;
+}
+select, button {
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+}
+button:hover {
+    background-color: #4cae4c;
+}
+.button-group {
+    display: flex;
+    justify-content: center;
+}
+.button-group button {
+    margin: 0 10px;
+}
+
+
+.select_route{
+    display: flex;
+    align-items: center;
+}
+
+.select_route p{
+    color: red;
+    font-size: 13px;
+}
+
+.select_route button {
+    margin-left: 50%; /* 按钮左边的外边距自动调整 */
+    margin-right: 10px; /* 按钮右边的外边距自动调整 */
+}
+
+
+

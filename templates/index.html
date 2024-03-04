@@ -12,12 +12,15 @@
 
 <div class="nav">
         <div class="active" onclick="location.href='/';">自动化测试</div>
-        <div onclick="location.href='test_results.html'">测试结果</div>
-        <div onclick="location.href='test_reports.html'">测试报告</div>
+        <div onclick="location.href='test_results'">测试结果</div>
+        <div onclick="location.href='test_reports'">测试报告</div>
 </div>
 
 <div class="container">
-    <form action="/" method="get">
+    <!--自动化测试参数配置、开始测试，在container左侧-->
+    <div class="test_config_left">
+        <form action="/" method="get">
+            <h2>测试配置</h2>
         <div>
             <label for="test_stand">选择台架：</label>
             <select id="test_stand" name="test_stand">
@@ -30,24 +33,26 @@
             <label for="version">四位数版本号：</label>
             <input type="text" id="version" name="version" maxlength="4" style="width:60px" autofocus>
         </div>
-        <div>
-            <label for="routes">选择航线：</label>
-            <select id="routes" name="routes" multiple>
-                {% for route in routes %}
-                <option value="{{ route }}">{{ route }}</option>
-                {% endfor %}
-            </select>
+        <div class="select_route">
+            <button>选择航线</button>
+            <p id="select_route_p">未选择航线</p>
         </div>
-        <div>
-            <button type="submit" id="start_test_btn">开始测试</button>
-        </div>
+
+        <button type="submit" id="start_test_btn">开始测试</button>
         <!-- 用于显示错误消息的元素 -->
         <div id="error-msg" style="color: red;"></div>
-    </form>
-    <div class="button-group">
-        <button onclick="window.location.href='/test_records'">查看测试记录</button>
-        <button onclick="window.location.href='/test_reports'">查看测试报告</button>
+        </form>
     </div>
+    <!--展示测试进度，在container右侧-->
+    <div class="test_progress_right">
+        <div class="test_progress">
+            <h2>测试进度</h2>
+        </div>
+    </div>
+<!--    <div class="button-group">-->
+<!--        <button onclick="window.location.href='/test_records'">查看测试记录</button>-->
+<!--        <button onclick="window.location.href='/test_reports'">查看测试报告</button>-->
+<!--    </div>-->
 
 </div>
 </body>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>自动化测试平台</h1>
+    </div>
+    <div class="nav">
+        <div onclick="location.href='/';">自动化测试</div>
+        <div onclick="location.href='test_results'">测试结果</div>
+        <div class="active" onclick="location.href='test_reports'">测试报告</div>
+    </div>
+</body>
+</html>
