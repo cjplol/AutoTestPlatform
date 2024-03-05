@@ -17,7 +17,7 @@ h2{
 .header {
     text-align: center;
     width: 100%;
-    padding: 20px 0;
+    padding: 10px 0;
     background-color: #175;
     color: #fff;
 }
@@ -79,19 +79,17 @@ form, .button-group {
     margin-bottom: 15px;
 }
 select, button {
-    padding: 10px;
+    padding: 8px;
     margin-top: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
 }
 button {
-    background-color: #5cb85c;
-    color: white;
-    border: none;
+    border: 1.3px solid black;
 }
 button:hover {
-    background-color: #4cae4c;
+    background-color: #eaeaea;
 }
 .button-group {
     display: flex;
@@ -101,6 +99,16 @@ button:hover {
     margin: 0 10px;
 }
 
+.test_category{
+    display: flex;
+    justify-content: center; /* 水平居中。会自动应用到所有子元素，因此只有按钮本身被居中。*/
+    align-items: center;
+}
+
+.test_category div, .flex-container label{
+    margin-right: 20px;
+    margin-top: 10px;
+}
 
 .select_route{
     position: relative; /* 设置相对定位基准 */
@@ -112,8 +120,9 @@ button:hover {
     color: red;
     font-size: 13px;
     position: absolute; /* 绝对定位置于左侧或右侧 */
-    left: 70%; /* 将 <p> 放置在 button 的右边 */
+    left: 58%; /* 将 <p> 放置在 button 的右边 */
     white-space: nowrap; /* 防止 <p> 中的文字换行 */
+    margin-top: 20px;
 }
 
 

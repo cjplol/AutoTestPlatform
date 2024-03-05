@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+verify_ssl = true
+name = "pip_conf_index_global"
+
+[packages]
+flask = "==3.0.2"
+paramiko = "==3.4.0"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>自动化测试平台</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
-    <script src="{{ url_for('static',filename='js/app.js') }}"></script>
+
 </head>
+<body>
 <div class="header">
         <h1>自动化测试平台</h1>
 </div>
@@ -19,7 +20,7 @@
 <div class="container">
     <!--自动化测试参数配置、开始测试，在container左侧-->
     <div class="test_config_left">
-        <form action="/" method="get">
+        <form id="test_form" action="/" method="get">
             <h2>测试配置</h2>
         <div>
             <label for="test_stand">选择台架：</label>
@@ -29,32 +30,46 @@
                 {% endfor %}
             </select>
         </div>
+
+        <div class="test_category">
+            <p>测试版本：</p>
+            <div>
+                <input type="radio" id="specific_version" name="version" value="specific" checked>
+                <label for="specific_version">指定版本</label>
+            </div>
+
+            <div>
+                <input type="radio" id="current_version" name="version" value="current" disabled>
+                <label for="current_version">当前版本<b style="color:red">(暂不可用)</b></label>
+            </div>
+
+        </div>
+
         <div>
-            <label for="version">四位数版本号：</label>
-            <input type="text" id="version" name="version" maxlength="4" style="width:60px" autofocus>
+            <label for="version">版本号：</label>
+            <input type="text" id="version" name="version" maxlength="6" style="width:78px" autofocus>
         </div>
 
         <div class="select_route">
-            <button id="select_route_btn">选择航线</button>
-            <p id="select_route_p">未选择航线</p>
+            <button id="select_route_btn" type="button" disabled>选择航线</button>
+            <p id="select_route_p">暂不可选(请把航线放在AutoAirline目录下)</p>
         </div>
 
-        <button type="submit" id="start_test_btn">开始测试</button>
+        <button id="start_test_btn">开始测试</button>
         <!-- 用于显示错误消息的元素 -->
-        <div id="error-msg" style="color: red;"></div>
         </form>
     </div>
     <!--展示测试进度，在container右侧-->
     <div class="test_progress_right">
         <div class="test_progress">
-            <h2>测试进度</h2>
+            <h2>测试状态</h2>
         </div>
     </div>
 <!--    <div class="button-group">-->
 <!--        <button onclick="window.location.href='/test_records'">查看测试记录</button>-->
 <!--        <button onclick="window.location.href='/test_reports'">查看测试报告</button>-->
 <!--    </div>-->
-
+<script src="{{ url_for('static',filename='js/app.js') }}"></script>
 </div>
 </body>
 </html>
