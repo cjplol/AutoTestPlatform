@@ -72,11 +72,11 @@ h2{
 }
 
 .test_config_left div,.test_progress_right div{
-    margin-bottom:10px;
+    margin-bottom:5px;
 }
 
-form, .button-group {
-    margin-bottom: 15px;
+form {
+    margin-bottom: 10px;
 }
 select, button {
     padding: 8px;
@@ -90,13 +90,6 @@ button {
 }
 button:hover {
     background-color: #eaeaea;
-}
-.button-group {
-    display: flex;
-    justify-content: center;
-}
-.button-group button {
-    margin: 0 10px;
 }
 
 .test_category{
@@ -124,5 +117,30 @@ button:hover {
     white-space: nowrap; /* 防止 <p> 中的文字换行 */
     margin-top: 20px;
 }
+
+.test_input {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中（如果有多行元素） */
+    flex-direction: column; /* 指定子元素垂直排列 */
+}
+
+.test_input input{
+    margin-top:10px;
+    font-size: 14px;
+    height: 20px;
+    width: 50%;
+    border: 1.5px solid black;
+    border-radius: 3px;
+}
+
+.disabled-input{
+    background-color: #e0e0e0; /* 灰色背景表示不可用 */
+    color: #a0a0a0; /* 浅灰色文字 */
+    border: 1px solid #d0d0d0; /* 边框颜色 */
+    /* 可以添加其他样式，如光标样式等 */
+    cursor: not-allowed;
+}
+
 
 

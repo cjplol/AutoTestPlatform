@@ -29,25 +29,26 @@
                 <option value="{{ stand }}">{{ stand }}</option>
                 {% endfor %}
             </select>
+            <button type="button" style="margin-left:10px" disabled>查看状态</button>
         </div>
 
         <div class="test_category">
             <p>测试版本：</p>
             <div>
-                <input type="radio" id="specific_version" name="version" value="specific" checked>
+                <input type="radio" id="specific_version" name="version_radio" value="specific" checked>
                 <label for="specific_version">指定版本</label>
             </div>
 
             <div>
-                <input type="radio" id="current_version" name="version" value="current" disabled>
-                <label for="current_version">当前版本<b style="color:red">(暂不可用)</b></label>
+                <input type="radio" id="current_version" name="version_radio" value="current">
+                <label for="current_version">当前版本</label>
             </div>
 
         </div>
 
-        <div>
-            <label for="version">版本号：</label>
-            <input type="text" id="version" name="version" maxlength="6" style="width:78px" autofocus>
+        <div class="test_input">
+            <input type="text" id="version" name="version" maxlength="7" autofocus placeholder="版本号（四位数及以上）">
+            <input type="text" id="test_name" name="test_name" placeholder="命名(例如：K4.5-2024.03.MR1-3843)">
         </div>
 
         <div class="select_route">
@@ -65,11 +66,10 @@
             <h2>测试状态</h2>
         </div>
     </div>
-<!--    <div class="button-group">-->
-<!--        <button onclick="window.location.href='/test_records'">查看测试记录</button>-->
-<!--        <button onclick="window.location.href='/test_reports'">查看测试报告</button>-->
-<!--    </div>-->
+
 <script src="{{ url_for('static',filename='js/app.js') }}"></script>
 </div>
+<b style="font-size:15px;color:red;text-align:center;padding-top:15px;">提示1：指定版本测试会将测试结果上传至飞书表格，当前版本测试会将测试结果保存在本地</b>
+<b style="font-size:15px;color:red;text-align:center;padding-top:15px;">提示2：命名会影响到测试结果的命名（测试结果保存到飞书在线表格）</b>
 </body>
 </html>

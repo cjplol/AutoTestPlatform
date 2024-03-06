@@ -1,31 +1,30 @@
 from flask import Flask, render_template,send_file,jsonify,request
-import json
-import paramiko
+from utils import load_json,ssh_link,ssh_cmd
 
 app = Flask(__name__)
 
-def load_config():
-    with open('config.json') as fp:
-        return json.load(fp)
-config=load_config()
-
+config=load_json('config.json') #读取config.json文件
 @app.route('/')
 @app.route('/index')
 def show_index():
-
     test_stands=list(config.keys()) #台架列表
     test_stand = request.args.get('test_stand') #点击按钮时选择的台架
     version = request.args.get('version')   #点击按钮时输入的版本
-    #点击测试按钮后，如果符合条件，则开始测试
-    if test_stand=='K4.5' and version:
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(config[test_stand]["host"], username=config[test_stand]["username"], password=config[test_stand]["password"])
-        command="/home/daa/test_group/manifest/cicd/hil/hil_upgrade_and_test.sh 3843 3843"
-        stdin, stdout, stderr = ssh.exec_command(command)
-        output = stdout.readlines()
+    version_radio_value=request.args.get('version_radio')   #点击按钮时选择的测试版本：specific或current
+
+    #如果测试指定版本
+    if version_radio_value=="specific":
+        ssh=ssh_link(config,test_stand)
+        command = f"/home/daa/test_group/manifest/cicd/hil/hil_upgrade_and_test.sh {version} {version}"
+        output=ssh_cmd(ssh,command)
         print(output)
-        ssh.close()
+
+    #如果测试当前版本
+    if version_radio_value=="current":
+        ssh=ssh_link(config,test_stand)
+        command = "auto_airline"
+        output=ssh_cmd(ssh,command)
+        print(output)
 
     return render_template('index.html', test_stands=test_stands)
 
@@ -44,3 +43,6 @@ def show_test_reports():
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0',port=1234)
+    # test_stand="K4.5"
+    # ssh = ssh_link(config, test_stand)
+    # print(ssh_cmd(ssh,"ps aux | grep hil_upgrade | grep /bin/bash | wc -l"))
