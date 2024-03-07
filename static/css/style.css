@@ -142,5 +142,28 @@ button:hover {
     cursor: not-allowed;
 }
 
+.test_progress{
+    margin:0 38%;
+    text-align: left;
+    width: 100%;
+}
+
+.test_progress div{
+    margin: 20px 0;
+}
+
+.status-label {
+    font-weight: bold;
+  }
+  .status-value {
+    color: #555;
+  }
+  .status-not-viewed {
+    color: #999;
+  }
+
+  .test_progress_button_group button{
+    margin:10px 10px;
+  }
 
 

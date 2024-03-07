@@ -6,6 +6,11 @@ var currentVersionRadio=document.getElementById("current_version"); //当前版�
 var specificVersionRadio=document.getElementById("specific_version");   //指定版本单选框
 var versionNumberHint=versionNumberInput.placeholder;   //版本号输入框提示语
 var testNameInputHint=testNameInput.placeholder;  //测试名输入框提示语
+var standCategoryValue=document.getElementById('stand_category').querySelector('.status-value') //台架类型内容span
+var xpuVersionValue=document.getElementById('xpu_version').querySelector('.status-value') //XPU版本内容span
+var testStatusValue=document.getElementById('test_status').querySelector('.status-value') //测试状态内容span
+var testPercentValue=document.getElementById('test_percent').querySelector('.status-value') //测试进度内容span
+
 
 function checkVersion(){
     if (currentVersionRadio.checked==true){
@@ -34,7 +39,14 @@ function checkVersion(){
 
 // 提交表单监听
 document.getElementById('test_form').addEventListener('submit',function(event){
-    result=checkVersion();
+    // 检查触发提交事件的元素
+    var submitter=event.submitter || document.activeElement;
+    // 如果触发提交的元素的 value 是 'check'，则不执行 checkVersion
+    if (submitter && submitter.value=='check'){
+        return;
+    }
+
+    var result=checkVersion();
     console.log(result);
     if (result==false){
         event.preventDefault(); //阻止表单提交
@@ -66,3 +78,15 @@ function specificVersionRadioChange(){
 //监听：单选框“当前版本”被选中时，下面两个输入框不可用，否则可用
 currentVersionRadio.addEventListener('change',versionRadioChange);
 specificVersionRadio.addEventListener('change',specificVersionRadioChange);
+
+//点击查看按钮后，将相关数据展示到前端
+function viewStatus(){
+    var test_stand="{{ test_stand }}";  //台架类型
+    var xpu_version="{{ xpu_version }}" //XPU软件版本号
+    var test_status="{{ test_status }}" //测试状态：闲置中、版本更新中、自动测试中、暂停中
+    var test_percent="{{ test_percent }}" //测试进度：xx/xxx
+
+    standCategoryValue.textContent=test_stand;
+    standCategoryValue.classList.remove('status-not-viewed');
+    console.log(test_stand)
+}

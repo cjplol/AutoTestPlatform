@@ -3,6 +3,7 @@
     "host":"10.32.68.95",
     "username": "daa",
     "password": "htdaa123",
-    "airline_path": "/home/daa/test_group/airlines/AutoAirline"
+    "airline_path": "/home/daa/test_group/airlines/AutoAirline",
+    "record_json_path": "/home/daa/test_group/ht_testkit/AutoAirline/auto.sikuli/record.json"
   }
 }
