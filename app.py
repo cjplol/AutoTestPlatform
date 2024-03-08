@@ -11,10 +11,11 @@ def show_index():
         #如果点击开始测试按钮
         if request.form['action']=='start':
             test_stand = request.form['test_stand'] #点击按钮时选择的台架
-            version = request.form['version']   #点击按钮时输入的版本
             version_radio_value=request.form['version_radio']   #点击按钮时选择的测试版本：specific或current
+            print(version_radio_value)
             #如果测试指定版本
             if version_radio_value=="specific":
+                version = request.form['version']  # 点击按钮时输入的版本
                 ssh=ssh_link(config,test_stand)
                 command = f"/home/daa/test_group/manifest/cicd/hil/hil_upgrade_and_test.sh {version} {version}"
                 print(command)
