@@ -1,4 +1,4 @@
-from flask import Flask, render_template,send_file,url_for,request,redirect
+from flask import Flask, render_template,send_file,url_for,request,redirect,jsonify
 from utils import load_json,ssh_link,ssh_cmd,check_test_status,ssh_close,check_test_percent
 
 app = Flask(__name__)
@@ -60,7 +60,15 @@ def show_test_reports():
 @app.route('/check_result')
 def show_check_result():
     test_stands = list(config.keys())  # 台架列表
-    return render_template('check_result.html')
+    return render_template('check_result.html',test_stands=test_stands)
+
+#暂停测试按钮点击后
+@app.route('/pause_test',methods=['POST'])
+def pause_test():
+    data=request.get_json() #获取JSON数据
+    test_stand=data.get('test_stand')
+    print(test_stand)
+    return jsonify({'status':'paused','received':test_stand})
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0',port=1234)

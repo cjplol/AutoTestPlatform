@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>自动化测试平台</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="header">
@@ -69,28 +69,28 @@
         <div class="test_progress">
             <div id="stand_category">
                 <span class="status-label">台架类型：</span>
-                <span class="status-value status-not-viewed">未查看状态</span>
+                <span id="test_stand_value" class="status-value status-not-viewed">未查看状态</span>
             </div>
             <div id="xpu_version">
                 <span class="status-label">软件版本：</span>
-                <span class="status-value status-not-viewed">未查看状态</span>
+                <span id="xpu_version_value" class="status-value status-not-viewed">未查看状态</span>
             </div>
             <div id="test_status">
                 <span class="status-label">测试状态：</span>
-                <span class="status-value status-not-viewed">未查看状态</span>
+                <span id="test_status_value" class="status-value status-not-viewed">未查看状态</span>
             </div>
             <div id="test_percent">
                 <span class="status-label">测试进度：</span>
-                <span class="status-value status-not-viewed">未查看状态</span>
+                <span id="test_percent_value" class="status-value status-not-viewed">未查看状态</span>
             </div>
 
         </div>
-        {% endblock %}
 
         <div class="test_progress_button_group">
-            <button type="button" id="stop_test_button" name="stop_test_button" disabled>暂停测试</button>
+            <button type="button" id="pause_test_button" name="pause_test_button" disabled>暂停测试</button>
             <button type="button" id="continue_test_button" name="continue_test_button" disabled>继续测试</button>
         </div>
+        {% endblock %}
     </div>
 
 

@@ -64,8 +64,8 @@ def check_test_percent(config,test_stand,ssh):
         sftp=ssh.open_sftp()
         with sftp.file(config[test_stand]["record_json_path"]) as remote_file:
             try:
-                record_json_list=json.load(remote_file)
-                finished_num=str(len(record_json_list))  #已完成的航线数量
+                record_json_content=json.load(remote_file)
+                finished_num=str(len(record_json_content["performance"]))  #已完成的航线数量
             except:
                 finished_num='0'
         total_num=ssh_cmd(ssh,f'ls {config[test_stand]["airline_path"]} | wc -l')[0].strip('\n')

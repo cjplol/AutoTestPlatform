@@ -90,3 +90,21 @@ function viewStatus(){
     standCategoryValue.classList.remove('status-not-viewed');
     console.log(test_stand)
 }
+
+$(document).ready(function(){
+    $('#pause_test_button').click(function(){
+        var test_stand=$('#test_stand_value').text();
+        var xpu_version=$('#xpu_version_value').text();
+        var test_status=$('#test_status_value').text();
+        var test_percent=$('#test_percent_value').text();
+        $.ajax({
+            type: "POST",
+            url: "/pause_test",
+            contentType: 'application/json;charset=UTF-8',
+            data:JSON.stringify({ 'test_stand': test_stand, 'xpu_version':xpu_version, 'test_status':test_status, 'test_percent':test_percent}),
+            success: function(response){
+                console.log(response.status);
+            }
+        });
+    });
+});
