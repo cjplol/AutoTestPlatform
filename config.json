@@ -1,9 +1,18 @@
 {
+  "K5.0": {
+    "host":"10.32.70.79",
+    "username": "ht",
+    "password": "htkj",
+    "record_json_path": "/home/ht/test_group/ht_testkit/AutoAirlineK50/auto.sikuli/record.json",
+    "airline_list_path": "/home/ht/test_group/ht_testkit/AutoAirlineK50/auto.sikuli/route_names.json",
+    "update_test_bash_path": "/home/ht/test_group/manifest/cicd/hil/hil_upgrade_and_test.sh"
+  },
   "K4.5": {
-    "host":"10.32.68.95",
-    "username": "daa",
-    "password": "htdaa123",
+    "host":"10.32.71.182",
+    "username": "ht",
+    "password": "htkj",
     "airline_path": "/home/daa/test_group/airlines/AutoAirline",
-    "record_json_path": "/home/daa/test_group/ht_testkit/AutoAirline/auto.sikuli/record.json"
+    "record_json_path": "/home/daa/test_group/ht_testkit/AutoAirline/auto.sikuli/record.json",
+    "update_test_bash_path": "/home/daa/test_group/manifest/cicd/hil/hil_upgrade_and_test.sh"
   }
 }

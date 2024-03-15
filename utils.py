@@ -10,7 +10,7 @@ def load_json(json_path):
 def ssh_link(config,test_stand):
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(config[test_stand]["host"], username=config[test_stand]["username"],password=config[test_stand]["password"])
+    ssh.connect(config[test_stand]["host"], username=config[test_stand]["username"],password=config[test_stand]["password"],timeout=1)
     return ssh
 
 #ssh执行命令，前提：建立了ssh连接
@@ -61,6 +61,7 @@ def check_test_percent(config,test_stand,ssh):
     if test_status=="闲置中" or test_status=="版本更新中":
         test_percent="无测试任务"
     else:
+        total_num=0
         sftp=ssh.open_sftp()
         with sftp.file(config[test_stand]["record_json_path"]) as remote_file:
             try:
@@ -68,6 +69,17 @@ def check_test_percent(config,test_stand,ssh):
                 finished_num=str(len(record_json_content["performance"]))  #已完成的航线数量
             except:
                 finished_num='0'
-        total_num=ssh_cmd(ssh,f'ls {config[test_stand]["airline_path"]} | wc -l')[0].strip('\n')
+        if test_stand=="K4.5":
+            total_num=ssh_cmd(ssh,f'ls {config[test_stand]["airline_path"]} | wc -l')[0].strip('\n')
+        if test_stand=="K5.0":
+            sftp = ssh.open_sftp()
+            with sftp.file(config[test_stand]["airline_list_path"]) as remote_file:
+                try:
+                    record_json_content = json.load(remote_file)
+                    total_num = str(len(record_json_content))  # 已完成的航线数量
+                except:
+                    total_num = '0'
+
         test_percent=finished_num+'/'+total_num
     return test_percent
+

@@ -26,11 +26,11 @@
         <div>
             <label for="test_stand">选择台架：</label>
             <select id="test_stand" name="test_stand">
+                <option value="" selected disabled hidden>请选择</option>
                 {% for stand in test_stands %}
                 <option value="{{ stand }}">{{ stand }}</option>
                 {% endfor %}
             </select>
-            <button type="submit" name='action' value="check" style="margin-left:10px">查看状态</button>
         </div>
 
         <div class="test_category">
@@ -57,7 +57,7 @@
             <p id="select_route_p">暂不可选(请把航线放在AutoAirline目录下)</p>
         </div>
 
-        <button type="submit" name="action" value="start" id="start_test_btn">开始测试</button>
+        <button type="submit" name="action" value="start" id="start_test_btn" onclick="">开始测试</button>
         <!-- 用于显示错误消息的元素 -->
         </form>
     </div>
@@ -69,19 +69,19 @@
         <div class="test_progress">
             <div id="stand_category">
                 <span class="status-label">台架类型：</span>
-                <span id="test_stand_value" class="status-value status-not-viewed">未查看状态</span>
+                <span id="test_stand_value" class="status-value status-not-viewed">未选择台架</span>
             </div>
             <div id="xpu_version">
                 <span class="status-label">软件版本：</span>
-                <span id="xpu_version_value" class="status-value status-not-viewed">未查看状态</span>
+                <span id="xpu_version_value" class="status-value status-not-viewed">未选择台架</span>
             </div>
             <div id="test_status">
                 <span class="status-label">测试状态：</span>
-                <span id="test_status_value" class="status-value status-not-viewed">未查看状态</span>
+                <span id="test_status_value" class="status-value status-not-viewed">未选择台架</span>
             </div>
             <div id="test_percent">
                 <span class="status-label">测试进度：</span>
-                <span id="test_percent_value" class="status-value status-not-viewed">未查看状态</span>
+                <span id="test_percent_value" class="status-value status-not-viewed">未选择台架</span>
             </div>
 
         </div>
