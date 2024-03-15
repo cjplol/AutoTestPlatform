@@ -25,7 +25,7 @@ $("#test_stand").on("change",function(){
                     alert("连接失败，请确认台架是否关机或断网");
                     }
                 else if(data["result"]=="failed"){
-                    alert("状态获取失败，请检查代码！");
+                    alert("状态获取失败，请确认台架能否连上XPU！");
                     $("#test_stand_value").text('');
                     $("#xpu_version_value").text('');
                     $('#test_status_value').text('');
@@ -39,6 +39,12 @@ $("#test_stand").on("change",function(){
                     $("#xpu_version_value").text(xpu_version).attr("class","status-value");
                     $('#test_status_value').text(test_status).attr("class","status-value");
                     $('#test_percent_value').text(test_percent).attr("class","status-value");
+                    if (test_status=="自动测试中"){
+                        $("#pause_test_button").prop("disabled",false)
+                    }
+                    if (test_status=="暂停中"){
+                        $("#continue_test_button").prop("disabled",false)
+                    }
                 }
             }
         });
@@ -78,15 +84,22 @@ function confirmSubmit() {
         return false;
     }
 
-    if (test_stand==''){
+    else if (test_stand==''){
         alert("请获取台架状态后再启动测试！");
         return false;
     }
 
-    if (test_status == "版本更新中") {
+    else if (test_status == "版本更新中") {
         alert(test_stand + "台架版本更新中，无法启动测试！");
         return false;
-    } else {
+    }
+
+    else if (test_status=="自动测试中"){
+        alert("请先暂停测试再启动新测试！");
+        return false;
+    }
+
+     else {
         console.log("进入到判断")
         var message = "台架类型：" + test_stand + "\n测试状态：" + test_status + "\n测试进度：" + test_percent + "\n是否开启新的测试？开始后将停止当前测试！";
         var confirmMessage = confirm(message);
@@ -114,7 +127,68 @@ document.getElementById('test_form').addEventListener('submit', function(event) 
         return;
     }
 
+
 });
+
+//点击开始测试按钮
+$(document).ready(function(){
+    $("#start_test_btn").click(function(){
+        var test_stand=$('#test_stand_value').text();
+        var whether_specific=$("#specific_version").prop("checked");    //是否选中指定版本
+        var version_text=$("#version").text();  //版本号填写的内容
+        var test_name=$("#test_name").text();   //测试命名
+        //如果指定版本测试，则检查输入的版本号是否正确，若正确则开始测试
+        if (whether_specific){
+            if (checkVersion()==false){
+                return;
+            }
+        }
+        //如果经过检查，达到开启测试条件，则开启测试
+        if(confirmSubmit()){
+            $.ajax({
+                type:"POST",
+                url:"/start_test",
+                contentType:"application/json;charset=UTF-8",
+                data:JSON.stringify({
+                    "test_stand": test_stand,
+                    "whether_specific":whether_specific,
+                    "version_text":version_text
+                }),
+                success: function(data){
+                    if(data["result"]=="disconnected"){
+                    alert("连接失败，请确认台架是否关机或断网");
+                    }
+                    else if(data["result"]=="failed"){
+                        alert("状态获取失败，请确认台架能否连上XPU！");
+                        $("#test_stand_value").text('');
+                        $("#xpu_version_value").text('');
+                        $('#test_status_value').text('');
+                        $('#test_percent_value').text('');
+                    }
+                    else{
+                        console.log(data)
+                        xpu_version=data["xpu_version"];
+                        test_status=data["test_status"];
+                        test_percent=data["test_percent"];
+                        $("#test_stand_value").text(test_stand).attr("class","status-value");
+                        $("#xpu_version_value").text(xpu_version).attr("class","status-value");
+                        $('#test_status_value').text(test_status).attr("class","status-value");
+                        $('#test_percent_value').text(test_percent).attr("class","status-value");
+                        if (test_status=="自动测试中"){
+                            $("#pause_test_button").prop("disabled",false)
+                        }
+                        if (test_status=="暂停中"){
+                            $("#continue_test_button").prop("disabled",false)
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX请求失败：", status, error);
+                }
+            })
+        }
+    })
+})
 
 
 //两个输入框根据测试版本单选框的情况决定可用或不可用
@@ -157,18 +231,38 @@ function viewStatus(){
 //点击暂停按钮，
 $(document).ready(function(){
     $('#pause_test_button').click(function(){
-        var test_stand=$('#test_stand_value').text();
-        var xpu_version=$('#xpu_version_value').text();
-        var test_status=$('#test_status_value').text();
-        var test_percent=$('#test_percent_value').text();
-        $.ajax({
-            type: "POST",
-            url: "/pause_test",
-            contentType: 'application/json;charset=UTF-8',
-            data:JSON.stringify({ 'test_stand': test_stand, 'xpu_version':xpu_version, 'test_status':test_status, 'test_percent':test_percent}),
-            success: function(response){
-                console.log(response.status);
-            }
-        });
+        var confirmMessage=confirm("确定暂停测试吗？\n提示：若未完成第1个航线测试，将直接停止该次测试，无法继续测试！")
+        if (confirmMessage){
+            var test_stand=$('#test_stand_value').text();
+            var test_percent=$("#test_percent_value").text();
+            $.ajax({
+                type: "POST",
+                url: "/pause_test",
+                contentType: 'application/json;charset=UTF-8',
+                data:JSON.stringify({ 'test_stand': test_stand}),
+                success: function(data){
+                    if(data["result"]=="disconnected"){
+                        alert("与台架连接断开，请检查！");
+                        }
+                    else if(data["result"]=="failed"){
+                        alert("出现异常错误！");
+                    }
+                    else{
+                        //如果测试进度为0/x，则直接终止测试而不是暂停
+                        if (test_percent.charAt(0)=="0"){
+                            $("#pause_test_button").prop("disabled",true);
+                            $("#test_status_value").text("闲置中");
+                            $("#test_percent_value").text("无测试任务");
+                        }
+                        else{
+                            $("#pause_test_button").prop("disabled",true);
+                            $("#continue_test_button").prop("disabled",false);
+                            $("#test_status_value").text("暂停中");
+                        }
+                    }
+                }
+            });
+        }
+
     });
 });
