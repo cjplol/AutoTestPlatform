@@ -4,15 +4,26 @@
     <meta charset="UTF-8">
     <title>自动化测试平台</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.9.1.js"></script>
+    <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css">
 </head>
 <body>
+<script>
+    $(function() {
+        $( "#airlinesList" ).sortable();
+        $( "#airlinesList" ).disableSelection();
+    });
+</script>
+
 <div class="header">
         <h1>自动化测试平台</h1>
 </div>
 
 <div class="nav">
         <div class="active" onclick="location.href='/';">自动化测试</div>
+        <div onclick="location.href='create_airline'">创建航线</div>
         <div onclick="location.href='test_results'">测试结果</div>
         <div onclick="location.href='test_reports'">测试报告</div>
 </div>
@@ -23,7 +34,8 @@
     <div class="test_config_left">
             <form id="test_form" action="/" method="post">
             <h2>测试配置</h2>
-        <div>
+
+        <div style="position:relative">
             <label for="test_stand">选择台架：</label>
             <select id="test_stand" name="test_stand">
                 <option value="" selected disabled hidden>请选择</option>
@@ -31,30 +43,110 @@
                 <option value="{{ stand }}">{{ stand }}</option>
                 {% endfor %}
             </select>
+            <span class="clickable_text" id="fresh_status" style="position:absolute;top:40%;margin-left:20px">刷新状态</span>
         </div>
 
+        <div style="position:relative">
+            <label for="staffs">人工接管：</label>
+            <input id="staffs" list="stafflist" name="staffs" placeholder="选择人员" style="text-align:center">
+            <datalist id="stafflist">
+                <option value="" selected disabled hidden>选择人员</option>
+                {% for staff in staffs %}
+                <option value="{{ staff }}">{{ staff }}</option>
+                {% endfor %}
+            </datalist>
+            <button type="button" id="takeover" style="position:absolute;bottom:0%;left:67%;font-size:11px">接管</button>
+            <button type="button" id="release" style="position:absolute;bottom:0%;left:74%;font-size:11px" disabled>释放</button>
+        </div>
+
+        <div>
+            <label for="camps">选择营地：</label>
+            <select name="camps" id="camps">
+                {% for camp in camps %}
+                <option value="{{ camp }}">{{ camp }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label for="camps">选择用户：</label>
+            <select name="users" id="users">
+                {% for user in users %}
+                <option value="{{ user }}">{{ user }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+
         <div class="test_category">
-            <p>测试版本：</p>
+            <p>测试模式：</p>
             <div>
                 <input type="radio" id="specific_version" name="version_radio" value="specific" checked>
-                <label for="specific_version">指定版本</label>
+                <label for="specific_version">在线测试</label>
             </div>
 
             <div>
                 <input type="radio" id="current_version" name="version_radio" value="current">
-                <label for="current_version">当前版本</label>
+                <label for="current_version">本地测试</label>
             </div>
 
         </div>
 
         <div class="test_input">
             <input type="text" id="version" name="version" maxlength="7" autofocus placeholder="版本号（四位数及以上）">
-            <input type="text" id="test_name" name="test_name" placeholder="命名(例如：K4.5-2024.03.MR1-3843)">
+            <input type="text" id="test_name" name="test_name" placeholder="命名(例如：K4.5-2024.03.MR1-3843)" style="display:none;">
         </div>
 
-        <div class="select_route">
-            <button id="select_route_btn" type="button" disabled>选择航线</button>
-            <p id="select_route_p">暂不可选(请把航线放在AutoAirline目录下)</p>
+        <div class="select_route" style="position:relative">
+            <button id="select_route_btn" type="button">选择航线</button>
+            <div style="position:absolute;top:45%;right:58%">
+                <input type="checkbox" id="smokeCheckbox">
+                <label style="font-size:12px" for="smokeCheckbox" >冒烟测试</label>
+            </div>
+
+            <span style="color:red">未选择航线</span>
+        </div>
+
+        <!-- 新窗口的 HTML 结构：选择航线的模态框 -->
+        <div class="modal" id="airlinesModal" style="display:none;">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>航线选择</h2>
+                <ol id="airlinesList"></ol>
+                <div class="modal-content-select">
+                    <input type="checkbox" id="selectAll">
+                    <label for="selectAll">全选航线</label>
+                    <span id="airlines_modal_percent"></span>
+                    <input type="checkbox" id="selectAllBack">
+                    <label for="selectAllBack">全选返航</label>
+                </div>
+                <div id="sort_buttons">
+                    <button id="sort_by_speed" type="button">常用排序</button>
+                    <button id="sort_by_random" type="button">随机排序</button>
+                    <button id="sort_by_default" type="button">原始排序</button>
+                </div>
+                <button id="confirmSelection" type="button">确定</button>
+                <button id="cancelSelection" type="button">取消</button>
+            </div>
+        </div>
+
+        <!-- 新窗口的 HTML 结构：查看测试进度详情的模态框 -->
+        <div class="modal" id="testPercentModal" style="display:none;">
+            <div class="modal-content">
+
+                <div style="position:relative">
+                    <span class="close-btn">&times;</span>
+                    <h2 >测试进度</h2>
+                    <button type="button" id="pie_button" style="position:absolute; bottom: 0; right: 20%;">统计图</button>
+                </div>
+                <div id="testPercentNums">
+                <span id="airlines_total_num"></span>
+                <span id="airlines_finish_num"></span>
+                <span id="airlines_success_num"></span>
+                <span id="airlines_success_rate"></span>
+                </div>
+                <ol id="testPercentList"></ol>
+            </div>
         </div>
 
         <button type="button" name="action" value="start" id="start_test_btn">开始测试</button>
@@ -70,6 +162,7 @@
             <div id="stand_category">
                 <span class="status-label">台架类型：</span>
                 <span id="test_stand_value" class="status-value status-not-viewed">未选择台架</span>
+                <span class="clickable_text" id="check_screen" style="display:none">查看屏幕</span>
             </div>
             <div id="xpu_version">
                 <span class="status-label">软件版本：</span>
@@ -82,6 +175,7 @@
             <div id="test_percent">
                 <span class="status-label">测试进度：</span>
                 <span id="test_percent_value" class="status-value status-not-viewed">未选择台架</span>
+                <span class="clickable_text" id="check_finished_airlines" style="display:none">查看详情</span>
             </div>
 
         </div>
@@ -89,6 +183,8 @@
         <div class="test_progress_button_group">
             <button type="button" id="pause_test_button" name="pause_test_button" disabled>暂停测试</button>
             <button type="button" id="continue_test_button" name="continue_test_button" disabled>继续测试</button>
+            <button type="button" id="generate_report">生成报告</button>
+            <span class="clickable_text" id="view_log">测试日志</span>
         </div>
         {% endblock %}
     </div>
@@ -96,7 +192,8 @@
 
 <script src="{{ url_for('static',filename='js/app.js') }}"></script>
 </div>
-<b style="font-size:15px;color:red;text-align:center;padding-top:15px;">提示1：指定版本测试会将测试结果上传至飞书表格，当前版本测试会将测试结果保存在本地</b>
-<b style="font-size:15px;color:red;text-align:center;padding-top:15px;">提示2：命名会影响到测试结果的命名（测试结果保存到飞书在线表格）</b>
+<b style="font-size:15px;color:red;text-align:center;padding-top:15px;">提示1：在线测试会将结果上传到飞书表格以及MINIO，离线测试将测试结果保存在本地</b>
+<b style="font-size:15px;color:red;text-align:center;padding-top:15px;">提示2：本地测试测的是当前版本，在线测试如果测试当前版本，只需输入当前版本号</b>
+<b style="font-size:15px;color:red;text-align:center;padding-top:15px;">提示3：用户test包含测试组手动创建的航线，testMachine是自动生成的航线，其他用户的航线是开发自测用，因此过滤</b>
 </body>
 </html>

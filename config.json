@@ -1,18 +1,53 @@
 {
-  "K5.0": {
-    "host":"10.32.70.79",
+  "K5.0-1": {
+    "host":"10.32.68.97",
     "username": "ht",
     "password": "htkj",
+    "HOMEPATH": "/home/ht",
     "record_json_path": "/home/ht/test_group/ht_testkit/AutoAirlineK50/auto.sikuli/record.json",
+    "update_test_bash_path": "/home/ht/test_group/manifest/cicd/hil/hil_upgrade_and_test.sh",
+    "test_bash_path": "/home/ht/test_group/manifest/cicd/hil/start_test.sh",
+    "get_airlines_py_path": "/home/ht/test_group/ht_testkit/AutoAirlineK50/auto.sikuli/get_routes.py",
     "airline_list_path": "/home/ht/test_group/ht_testkit/AutoAirlineK50/auto.sikuli/route_names.json",
-    "update_test_bash_path": "/home/ht/test_group/manifest/cicd/hil/hil_upgrade_and_test.sh"
+    "kill_sim_bash_path": "/home/ht/hulu-2.0/hulu-2.0/linux_frontend/script/hil_kill.bash",
+    "ros_path": "/opt/ros/noetic/setup.bash",
+    "ros_workspace": "/home/ht/hulu-2.0-dev/hulu-2.0/sim_platform/sim_msgs/devel/setup.bash",
+    "autotest_log_path": "/home/ht/test_group/ht_testkit/AutoAirlineK50/auto.sikuli/log.txt",
+    "screen_shot_py_path": "/home/ht/test_group/ht_testkit/AutoAirlineTools/screenshot.py",
+    "generator_report_pyt_path": "/home/ht/test_group/ht_testkit/AutoAirlineTools/generate_report.py"
+  },
+  "K5.0-2": {
+    "host":"10.32.68.98",
+    "username": "ht",
+    "password": "htkj",
+    "HOMEPATH": "/home/ht",
+    "record_json_path": "/home/ht/test_group/ht_testkit/AutoAirlineK50/auto.sikuli/record.json",
+    "update_test_bash_path": "/home/ht/test_group/manifest/cicd/hil/hil_upgrade_and_test.sh",
+    "test_bash_path": "/home/ht/test_group/manifest/cicd/hil/start_test.sh",
+    "get_airlines_py_path": "/home/ht/test_group/ht_testkit/AutoAirlineK50/auto.sikuli/get_routes.py",
+    "airline_list_path": "/home/ht/test_group/ht_testkit/AutoAirlineK50/auto.sikuli/route_names.json",
+    "kill_sim_bash_path": "/home/ht/hulu-2.0/hulu-2.0/linux_frontend/script/hil_kill.bash",
+    "ros_path": "/opt/ros/noetic/setup.bash",
+    "ros_workspace": "/home/ht/hulu-2.0-dev/hulu-2.0/sim_platform/sim_msgs/devel/setup.bash",
+    "autotest_log_path": "/home/ht/test_group/ht_testkit/AutoAirlineK50/auto.sikuli/log.txt",
+    "screen_shot_py_path": "/home/ht/test_group/ht_testkit/AutoAirlineTools/screenshot.py",
+    "generator_report_pyt_path": "/home/ht/test_group/ht_testkit/AutoAirlineTools/generate_report.py"
   },
   "K4.5": {
-    "host":"10.32.71.182",
+    "host":"10.32.68.96",
     "username": "ht",
     "password": "htkj",
-    "airline_path": "/home/daa/test_group/airlines/AutoAirline",
-    "record_json_path": "/home/daa/test_group/ht_testkit/AutoAirline/auto.sikuli/record.json",
-    "update_test_bash_path": "/home/daa/test_group/manifest/cicd/hil/hil_upgrade_and_test.sh"
+    "HOMEPATH": "/home/ht",
+    "record_json_path": "/home/ht/test_group/ht_testkit/AutoAirlineK45/auto.sikuli/record.json",
+    "update_test_bash_path": "/home/ht/test_group/manifest/cicd/hil/hil_upgrade_and_test.sh",
+    "test_bash_path": "/home/ht/test_group/manifest/cicd/hil/start_test.sh",
+    "get_airlines_py_path": "/home/ht/test_group/ht_testkit/AutoAirlineK45/auto.sikuli/get_routes.py",
+    "airline_list_path": "/home/ht/test_group/ht_testkit/AutoAirlineK45/auto.sikuli/route_names.json",
+    "kill_sim_bash_path": "/home/ht/hulu-2.0-dev/hulu-2.0/linux_frontend/script/hil_kill.bash",
+    "ros_path": "/opt/ros/noetic/setup.bash",
+    "ros_workspace": "/home/ht/hulu-2.0-dev/hulu-2.0/sim_platform/sim_msgs/devel/setup.bash",
+    "autotest_log_path": "/home/ht/test_group/ht_testkit/AutoAirlineK45/auto.sikuli/log.txt",
+    "screen_shot_py_path": "/home/ht/test_group/ht_testkit/AutoAirlineTools/screenshot.py",
+    "generator_report_pyt_path": "/home/ht/test_group/ht_testkit/AutoAirlineTools/generate_report.py"
   }
 }

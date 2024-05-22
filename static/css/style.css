@@ -13,6 +13,9 @@ h2{
     margin: 8px;
 }
 
+ul{
+    list-style-type: none;
+}
 
 .header {
     text-align: center;
@@ -109,7 +112,7 @@ button:hover {
     justify-content: center; /* 水平居中。会自动应用到所有子元素，因此只有按钮本身被居中。*/
 }
 
-#select_route_p{
+.select_route span{
     color: red;
     font-size: 13px;
     position: absolute; /* 绝对定位置于左侧或右侧 */
@@ -149,7 +152,7 @@ button:hover {
 }
 
 .test_progress div{
-    margin: 25px 0;
+    margin: 35px 0;
 }
 
 .status-label {
@@ -166,4 +169,74 @@ button:hover {
     margin:10px 10px;
   }
 
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0.3);
+  display: flex; /* 使用flex布局 */
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+}
+
+.modal-content {
+  width: 80%;
+  max-height: 100%; /* 设置最大高度，例如屏幕高度的80% */
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box; /* 确保内边距不会影响总宽度 */
+}
+
+#airlinesList {
+    max-height: 380px; /* 可以根据需要调整最大高度 */
+    overflow-y: auto; /* 设置滚动条 */
+}
+
+#testPercentList{
+    max-height: 400px; /* 可以根据需要调整最大高度 */
+    overflow-y: auto; /* 设置滚动条 */
+}
+
+.close-btn{
+    float: right;
+    color: gray;
+    font-size:24px;
+}
+
+.close-btn:hover{
+    color: black;
+    cursor: pointer;
+}
+
+#airlines_modal_percent {
+    margin-left: 20px; /* 可以根据需要调整这个值 */
+}
+
+.clickable_text{
+    margin-left: 10px;
+    cursor: pointer;
+    color: #007BFF;
+}
+
+.clickable_text:hover{
+    color: #0056B3;
+}
+
+.test_status_span{
+    margin-left: 10px;
+}
+
+.ui-state-default span {
+  display: inline-block; /* 或者 'inline'，取决于你的需求 */
+  vertical-align: middle; /* 对齐到中间 */
+
+}
+
+#testPercentNums span{
+    font-weight: bold;
+    margin-left: 50px;
+}
 
