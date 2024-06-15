@@ -27,9 +27,9 @@ def show_index():
     test_stands = list(config.keys())   #台架列表
     camps=list(camps_config.values())   #营地名列表
     users=list(user_config.values())    #用户名列表
-    staffs=get_adc_staff()      #获取自驾中心人员列表
+    #staffs=get_adc_staff()      #获取自驾中心人员列表
 
-    return render_template('index.html', test_stands=test_stands,camps=camps,users=users,staffs=staffs)
+    return render_template('index.html', test_stands=test_stands,camps=camps,users=users)
 
 #创建航线页面
 @app.route('/create_airline')

@@ -46,18 +46,18 @@
             <span class="clickable_text" id="fresh_status" style="position:absolute;top:40%;margin-left:20px">刷新状态</span>
         </div>
 
-        <div style="position:relative">
-            <label for="staffs">人工接管：</label>
-            <input id="staffs" list="stafflist" name="staffs" placeholder="选择人员" style="text-align:center">
-            <datalist id="stafflist">
-                <option value="" selected disabled hidden>选择人员</option>
-                {% for staff in staffs %}
-                <option value="{{ staff }}">{{ staff }}</option>
-                {% endfor %}
-            </datalist>
-            <button type="button" id="takeover" style="position:absolute;bottom:0%;left:67%;font-size:11px">接管</button>
-            <button type="button" id="release" style="position:absolute;bottom:0%;left:74%;font-size:11px" disabled>释放</button>
-        </div>
+<!--        <div style="position:relative">-->
+<!--            <label for="staffs">人工接管：</label>-->
+<!--            <input id="staffs" list="stafflist" name="staffs" placeholder="选择人员" style="text-align:center">-->
+<!--            <datalist id="stafflist">-->
+<!--                <option value="" selected disabled hidden>选择人员</option>-->
+<!--                {% for staff in staffs %}-->
+<!--                <option value="{{ staff }}">{{ staff }}</option>-->
+<!--                {% endfor %}-->
+<!--            </datalist>-->
+<!--            <button type="button" id="takeover" style="position:absolute;bottom:0%;left:67%;font-size:11px">接管</button>-->
+<!--            <button type="button" id="release" style="position:absolute;bottom:0%;left:74%;font-size:11px" disabled>释放</button>-->
+<!--        </div>-->
 
         <div>
             <label for="camps">选择营地：</label>
